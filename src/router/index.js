@@ -4,17 +4,59 @@ import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 
 const routes = [
+  // {
+  //   path: '/',
+  //   redirect: '/login'
+  // },
   {
-    path: '/',
-    name: 'Home'
+    path: '/login',
+    name: 'login',
+    component: () => import('@/views/login')
   },
   {
-    path: '/about',
-    name: 'About'
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-  }
+    path: '/',
+    name: 'layout',
+    component: () => import('@/views/layout'),
+    children: [
+      {
+        path: '/home', // 默认显示
+        name: 'home',
+        component: () => import('@/views/home')
+      },
+      {
+        path: '/qa',
+        name: 'qa',
+        component: () => import('@/views/qa')
+      },
+      {
+        path: '/video',
+        name: 'video',
+        component: () => import('@/views/video')
+      },
+      {
+        path: '/my',
+        name: 'my',
+        component: () => import('@/views/my')
+      }
+    ]
+  },
+  {
+    path: '/search',
+    name: 'search',
+    component: () => import('@/views/search')
+  },
+  {
+    path: '/article/:articleId',
+    name: 'article',
+    component: () => import('@/views/article'),
+    props: true // 开启props 传参
+  },
+  {
+    path: '/user/profile',
+    name: 'profile',
+    component: () => import('@/views/user-profile'),
+    props: true // 开启props 传参
+  },
 ]
 
 const router = new VueRouter({
